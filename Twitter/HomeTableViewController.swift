@@ -29,8 +29,9 @@ class HomeTableViewController: UITableViewController {
     }
     
     @objc func loadTweets(){
+        numOfTweets = 20
         let tweetsUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
-        let params = ["count": 10]
+        let params = ["count":numOfTweets]
         
         TwitterAPICaller.client?.getDictionariesRequest(url: tweetsUrl, parameters: params, success: { (tweets: [NSDictionary]) in
             
@@ -44,6 +45,25 @@ class HomeTableViewController: UITableViewController {
         }, failure: { (Error) in
             print("ERROR: Couldnt get tweets.")
         })
+    }
+    
+    func loadMoreTweets(){
+        let tweetsUrl = "https://api.twitter.com/1.1/statuses/home_timeline.json"
+        numOfTweets = numOfTweets + 20
+        let params = ["count": numOfTweets]
+        
+        TwitterAPICaller.client?.getDictionariesRequest(url: tweetsUrl, parameters: params, success: { (tweets: [NSDictionary]) in
+            
+            self.tweets.removeAll()
+            for tweet in tweets{
+                self.tweets.append(tweet)
+            }
+            self.tableView.reloadData()
+            
+        }, failure: { (Error) in
+            print("ERROR: Couldnt get additional tweets.")
+        })
+    
     }
 
     @IBAction func onLogout(_ sender: Any) {
@@ -79,6 +99,12 @@ class HomeTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return tweets.count
+    }
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath){
+        if indexPath.row + 1 == tweets.count {
+            loadMoreTweets()
+        }
     }
 
     /*
