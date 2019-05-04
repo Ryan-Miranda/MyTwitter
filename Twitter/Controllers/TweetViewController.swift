@@ -42,7 +42,7 @@ class TweetViewController: UIViewController {
             let action1 = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in}
             alertController.addAction(action1)
             self.present(alertController, animated: true, completion: nil)
-            
+        
             //self.dismiss(animated: true, completion: nil)
         }
     }
