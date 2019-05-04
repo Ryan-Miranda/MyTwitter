@@ -17,6 +17,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetButton: UIButton!
     
     var favorited:Bool = false
+    var retweeted:Bool = false
     var tweetID:Int = -1
     
     override func awakeFromNib() {
@@ -38,6 +39,30 @@ class TweetCell: UITableViewCell {
         else {
             favButton.setImage(UIImage(named:"favor-icon"), for: UIControl.State.normal)
         }
+    }
+    
+    func setRetweet(_ isRetweeded:Bool) {
+        if (isRetweeded) {
+            retweetButton.setImage(UIImage(named: "retweet-icon-green"), for: UIControl.State.normal)
+            retweetButton.isEnabled = false
+        }
+        else {
+            retweetButton.setImage(UIImage(named: "retweet-icon"), for: UIControl.State.normal)
+            retweetButton.isEnabled = true
+        }
+    }
+    
+    @IBAction func retweet(_ sender: Any) {
+        TwitterAPICaller.client?.retweet(tweetID: tweetID, success: {
+            self.setRetweet(true)
+        }, failure: { (error) in
+            print("Failed to retweet: \(error)")
+            
+            let alertController = UIAlertController(title: "Error", message: "Could not retweet.", preferredStyle: .alert)
+            let action1 = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in}
+            alertController.addAction(action1)
+            UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+        })
     }
     
     @IBAction func favoriteTweet(_ sender: Any) {
@@ -70,8 +95,4 @@ class TweetCell: UITableViewCell {
             })
         }
     }
-    
-    @IBAction func retweet(_ sender: Any) {
-    }
-    
 }
