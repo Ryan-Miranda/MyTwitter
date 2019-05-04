@@ -190,9 +190,17 @@
                                 <attributedString key="attributedText"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="280/280 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0xe-xv-Tja" userLabel="Num Characters Label">
+                                <rect key="frame" x="295.5" y="216" width="71.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="obL-Yg-Iff" firstAttribute="trailing" secondItem="0xe-xv-Tja" secondAttribute="trailing" constant="8" id="1am-Sl-cap"/>
+                            <constraint firstItem="0xe-xv-Tja" firstAttribute="top" secondItem="6Nx-UO-hm1" secondAttribute="bottom" constant="8" id="8v1-0g-5Jc"/>
                             <constraint firstItem="6Nx-UO-hm1" firstAttribute="leading" secondItem="obL-Yg-Iff" secondAttribute="leading" constant="4" id="FX6-sn-itL"/>
                             <constraint firstItem="obL-Yg-Iff" firstAttribute="trailing" secondItem="6Nx-UO-hm1" secondAttribute="trailing" constant="4" id="Ipo-lZ-xNc"/>
                             <constraint firstItem="6Nx-UO-hm1" firstAttribute="top" secondItem="obL-Yg-Iff" secondAttribute="top" constant="16" id="kX5-qh-1qa"/>
@@ -214,6 +222,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="numCharsLabel" destination="0xe-xv-Tja" id="29H-6p-90b"/>
                         <outlet property="tweetTextView" destination="6Nx-UO-hm1" id="wnV-HH-zvb"/>
                     </connections>
                 </viewController>
